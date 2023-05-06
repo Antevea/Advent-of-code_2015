@@ -42,6 +42,7 @@ enum Command {
 struct CircutBoard {
     commands: HashMap<String, Command>,
     wires: RefCell<HashMap<String, u16>>,
+    part1_wire_a: u16,
 }
 
 impl CircutBoard {
@@ -75,7 +76,9 @@ impl CircutBoard {
             commands.insert(r, command);
         }
         Self {
-            commands, wires: RefCell::new(HashMap::new())
+            commands,
+            wires: RefCell::new(HashMap::new()),
+            part1_wire_a: 0,
         }
     }
 
@@ -128,20 +131,24 @@ impl CircutBoard {
         self.wires.borrow_mut().insert(var.clone(), value);
         value
     }
+
+    fn set_b(&self, value: u16) {
+        self.wires.borrow_mut().clear();
+        self.wires.borrow_mut().insert("b".to_string().into(), value);
+    }
 }
 
-fn part1() {
-    let cb = CircutBoard::new();
-    println!("Wire a has signal: {}", cb.get_value(&VarOptions::Var("a".to_string())));
-}
+fn part1_and_part2() {
+    let mut cb = CircutBoard::new();
+    let part1_answer = cb.get_value(&VarOptions::Var("a".to_string()));
+    cb.part1_wire_a = part1_answer;
+    println!("Part 1: Wire \'a\' has signal: {}", part1_answer);
 
-/* fn part2() {
-    // let filepath = "sample";
-    let filepath = "puzzle";
-    let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-} */
+    cb.set_b(part1_answer);
+    let part2_answer = cb.get_value(&VarOptions::Var("a".to_string()));
+    println!("Part 2: Wire \'a\' has signal: {}", part2_answer);
+}
 
 fn main() {
-    part1();
-    // part2();
+    part1_and_part2();
 }
