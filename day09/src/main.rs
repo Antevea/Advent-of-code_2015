@@ -41,7 +41,7 @@ impl<T: Clone> Permutations<T> {
     }
 }
 
-fn part1() {
+fn solution() {
     // let filepath = "sample";
     let filepath = "puzzle";
     let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
@@ -68,6 +68,7 @@ fn part1() {
     permut.generate(&mut city_list, city_list_len);
 
     let mut shortest = u64::MAX;
+    let mut longest = 0_u64;
     for p in permut.list.iter() {
         let mut dist_sum = 0;
         for pair in p.windows(2) {
@@ -75,18 +76,13 @@ fn part1() {
         }
 
         shortest = shortest.min(dist_sum);
+        longest = longest.max(dist_sum);
     }
 
     println!("Shortest distance: {}", shortest);
+    println!("Longest distance: {}", longest);
 }
 
-/* fn part2() {
-    let filepath = "sample";
-    // let filepath = "puzzle";
-    let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-} */
-
 fn main() {
-    part1();
-    // part2();
+    solution();
 }
