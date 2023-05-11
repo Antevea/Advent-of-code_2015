@@ -22,7 +22,7 @@ fn count_and_say(init_seq: &[u8]) -> Vec<u8> {
     result
 }
 
-fn part1() {
+fn solution() {
     // let filepath = "sample";
     let filepath = "puzzle";
     let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
@@ -32,20 +32,18 @@ fn part1() {
         .map(|c| c.to_digit(10).unwrap() as u8)
         .collect::<Vec<u8>>();
 
-    for _ in 0..40 {
+    for i in 0..50 {
         sequence = count_and_say(&sequence);
-    }
 
-    println!("Final length of the sequence {}", sequence.len());
+        if i == 39 {
+            println!("Length of sequence after 40 iterations: {}", sequence.len());
+        }
+        if i == 49 {
+            println!("Length of sequence after 50 iterations: {}", sequence.len());
+        }
+    }
 }
 
-/* fn part2() {
-    let filepath = "sample";
-    // let filepath = "puzzle";
-    let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-} */
-
 fn main() {
-    part1();
-    // part2();
+    solution();
 }
