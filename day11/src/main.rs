@@ -67,7 +67,7 @@ fn iterate_password(init_vec: &Vec<char>) -> Vec<char> {
     next_pass_vec
 }
 
-fn part1() {
+fn solution() {
     // let filepath = "sample";
     let filepath = "puzzle";
     let input_str = read_to_string(filepath)
@@ -80,16 +80,17 @@ fn part1() {
     while is_pass_meets_requirements(&pass_vec) != true {
         pass_vec = iterate_password(&pass_vec);
     }
+    // Answer for part 1
     println!("Santa password: {}", pass_vec.iter().collect::<String>());
+
+    pass_vec = iterate_password(&pass_vec);
+    while is_pass_meets_requirements(&pass_vec) != true {
+        pass_vec = iterate_password(&pass_vec);
+    }
+    // Answer for part 2
+    println!("Next santa password: {}", pass_vec.iter().collect::<String>());
 }
 
-/* fn part2() {
-    let filepath = "sample";
-    // let filepath = "puzzle";
-    let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-} */
-
 fn main() {
-    part1();
-    // part2();
+    solution();
 }
