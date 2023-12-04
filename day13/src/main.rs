@@ -101,21 +101,19 @@ impl TableHappiness {
     }
 }
 
-fn part1() {
+fn solutions() {
     // let filepath = "sample";
     let filepath = "puzzle";
     let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-    let mut tblhapp = TableHappiness::new();
-    tblhapp.parse(input_str);
-    println!("{}", tblhapp.find_happiest());
+
+    let mut table = TableHappiness::new();
+
+    table.parse(input_str);
+    println!("First part: {}", table.find_happiest());
+    table.people.insert("Myself".to_string());
+    println!("Second part: {}", table.find_happiest());
 }
 
-/* fn part2() {
-    let filepath = "sample";
-    // let filepath = "puzzle";
-} */
-
 fn main() {
-    part1();
-    // part2();
+    solutions();
 }
