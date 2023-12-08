@@ -75,9 +75,9 @@ fn part2() {
         let tokens_vec = line.split(' ').collect::<Vec<&str>>();
 
         let reeinder = ReeinderRacer::new(
-            tokens_vec[3].parse::<u64>().unwrap(),
-            tokens_vec[6].parse::<u64>().unwrap(),
-            tokens_vec[13].parse::<u64>().unwrap(),
+            tokens_vec[3].parse::<u64>().unwrap(),      // Speed
+            tokens_vec[6].parse::<u64>().unwrap(),      // Fly time
+            tokens_vec[13].parse::<u64>().unwrap(),     // Rest time
         );
 
         reeinders.push(reeinder);
