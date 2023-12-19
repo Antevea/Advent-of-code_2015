@@ -51,7 +51,7 @@ impl Entity {
     }
 }
 
-fn part1() {
+fn solutions() {
     // let filepath = "sample";
     let filepath = "puzzle";
     let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
@@ -111,6 +111,7 @@ fn part1() {
     ];
     let player_hp = 100;
     let mut min_cost = i32::MAX;
+    let mut max_cost = 0i32;
 
     let mut player = Entity {
         armor: 0,
@@ -121,14 +122,19 @@ fn part1() {
     // All combinations
     for wpn in weapon_items.iter() {
         for armr in armor_items.iter() {
-            for first_ring in ring_items.iter() {
-                for second_ring in ring_items.iter() {
+            for (i, first_ring) in ring_items.iter().enumerate() {
+                for (j, second_ring) in ring_items.iter().enumerate() {
+                    if i == j {
+                        continue;
+                    }
                     let equipment = vec![*wpn, *armr, *first_ring, *second_ring];
                     let equipment_cost = equipment.iter().fold(0, |acc, itm| acc + itm.cost);
 
-                    player.equip_items(equipment);
+                    player.equip_items(equipment);              // Remove this clone
                     if player.emulate_fight(&boss_entity) == true {
                         min_cost = min_cost.min(equipment_cost);
+                    } else {
+                        max_cost = max_cost.max(equipment_cost);
                     }
                 }
             }
@@ -136,15 +142,9 @@ fn part1() {
     }
 
     println!("Part 1: {}", min_cost);
+    println!("Part 2: {}", max_cost);
 }
 
-/* fn part2() {
-    // let filepath = "sample";
-    let filepath = "puzzle";
-    let input_str = read_to_string(filepath).expect(&format!("Error: File {} not found!", filepath));
-} */
-
 fn main() {
-    part1();
-    // part2();
+    solutions();
 }
